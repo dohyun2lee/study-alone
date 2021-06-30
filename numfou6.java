@@ -24,7 +24,7 @@ public class numfou6 {
 		Card c1 = new Card();
 		Card c2 = new Card("Heart", 10);
 		System.out.println(c1.toString());
-		System.out.println(c2.toString("Heart", 10));
+		System.out.println(c2.toString());
 	}
 
 }
