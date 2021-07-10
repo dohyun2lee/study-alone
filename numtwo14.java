@@ -8,7 +8,7 @@ public class numtwo14 {
 		Set set = new HashSet();
 
 		for(int i=0; i < objArr.length; i++) {
-			set.add(objArr[i]);
+			System.out.println(objArr[i]+"="+set.add(objArr[i]));
 		}
       
 		System.out.println(set);	
