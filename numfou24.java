@@ -5,8 +5,8 @@ class numfou24 {
 		Thread11 th1 = new Thread11();
 		th1.start();
 
-		String input = JOptionPane.showInputDialog("¾Æ¹« °ªÀÌ³ª ÀÔ·ÂÇÏ¼¼¿ä."); 
-		System.out.println("ÀÔ·ÂÇÏ½Å °ªÀº " + input + "ÀÔ´Ï´Ù.");
+		String input = JOptionPane.showInputDialog("ì•„ë¬´ ê°’ì´ë‚˜ ì…ë ¥í•˜ì„¸ìš”."); 
+		System.out.println("ì…ë ¥í•˜ì‹  ê°’ì€ " + input + "ì…ë‹ˆë‹¤.");
 		th1.interrupt();  
 		System.out.println("isInterrupted():"+ th1.isInterrupted()); 
 	}
@@ -20,6 +20,6 @@ class Thread11 extends Thread {
 			System.out.println(i--);
 			for(long x=0;x<2500000000L;x++); 
 		}
-		System.out.println("Ä«¿îÆ®°¡ Á¾·áµÇ¾ú½À´Ï´Ù.");
+		System.out.println("ì¹´ìš´íŠ¸ê°€ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 	} 
 }
