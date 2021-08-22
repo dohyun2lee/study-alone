@@ -6,34 +6,44 @@ public class numone {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		
-		int n = 0, i = 0, j = 0, a = 0, b = 0;
+		int n = 0, m = 0;
+		
 		n = sc.nextInt();
-		int[] arr = new int[n];
-		arr[i] = sc.nextInt();
-
-		if(arr[i] <= 1000000) {
-				for(j=2;j<arr[i];j++) {
-					if(arr[i]%j==0&&j!=arr[i]) {
-						if(a%j!=0&&j!=a&&a<=j&&b%j!=0&&j!=b&&b<=j&&a!=b) {
-							if(Math.abs(arr[i]-a)>Math.abs(arr[i]-b)) {
-								System.out.print(b);
-							}
-							else if(Math.abs(arr[i]-a)<Math.abs(arr[i]-b)) {
-								System.out.print(a);
-							}
-							else {
-								if(a>b)
-									System.out.print(b + a);
-								else
-									System.out.print(a + b);
-							}
-						}
+		m = sc.nextInt();
+		
+		if(n<=101&&1<=m&&m<=3) {
+			switch(m) {
+			case 1 :
+				for(int i=1;i<n;i++) {
+					for(int j=0;j<i;j++) {
+						System.out.print("*");
 					}
-					else
-						System.out.println(arr[i]+" ");
+					System.out.println();
+				}
+				break;
+			case 2 :
+				for(int i=n;i>0;i--) {
+					for(int j=i;j>0;j--) {
+						System.out.print("*");
+					}
+					System.out.println();
+				}
+				break;
+			case 3 :
+				for(int i=0;i<n;i++) {
+					for(int j=0;j<n-i;j++) {
+						System.out.print(" ");
+					}
+					for(int j=0;j<1+i*2;j++) {
+						System.out.print("*");
+					}
+					System.out.println();
+				}
+				break;
 			}
 		}
+		else
+			System.out.println("Input Error!");
 	}
+
 }
-
-
