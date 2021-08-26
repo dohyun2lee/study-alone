@@ -11,10 +11,16 @@ public class numone {
 		String as = sc.next();
 		char[] arr = as.toCharArray();
 			
-		String[] alp = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"
-				, "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		//String[] alp = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"
+			//	, "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		String alp = "abcdefghijklmnopqrstuvwxyz";
+		char[] allp = alp.toCharArray();
+		String alp2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		char[] allp2 = alp2.toCharArray();
 		
 		int i = 0, j = 0;
+		
+		char[] ans = new char[i];
 		
 		//System.out.println("eydbkmiqugjxlvtzpnwohracsf");
 //		
@@ -55,16 +61,22 @@ public class numone {
 		//"H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R ", "S", "T", "U" , "V", "W", "X", 
 		//"Y", "Z"
 		
-		for(i = 0, j = 0; i < arr.length&& j < 26; i++, j++) {
-			if(arr[i] == ' ') {
-				System.out.print(' ');
+		for(i = 0; i < arr.length; i++) {
+			for(j = 0; j < 26; j++) {
+				if(arr[i] == ' ') {
+					ans[i] += arr[i];
+				}
+				else if(Character.isUpperCase(arr[i])) {
+					if(key[j]==arr[i]+32)
+						ans[i] += allp2[j];
+				}
+				else 
+					ans[i] += allp[j];
 			}
-			else if(65<=arr[i]&&arr[i]<97&&arr[i]==key[j]) {
-				System.out.print(alp[j].toUpperCase());
-			}
-			else 
-				System.out.print(alp[j]);
 		}
+		System.out.print(ans);
+		
+	
 	}
 
 }
