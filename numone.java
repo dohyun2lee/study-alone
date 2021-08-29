@@ -6,10 +6,10 @@ public class numone {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		
-		String bs = sc.next();
+		String bs = sc.nextLine();
 		char[] key = bs.toCharArray();
 		//eydbkmiqugjxlvtzpnwohracsf
-		String as = sc.next();
+		String as = sc.nextLine();
 		char[] arr = as.toCharArray();
 		
 		String alp = "abcdefghijklmnopqrstuvwxyz";
@@ -24,19 +24,16 @@ public class numone {
 			for(j = 0; j < allp.length; j++) {
 				if(arr[i]==' ') {
 					ans[i] += (char)(32);
-					continue;
 				}
 				else if(Character.isUpperCase(arr[i])) {
 					if(allp[j] == arr[i]+32) {
 						ans[i] += key[j]-32;
 					}
-					continue;
 				}
 				else
 					if(allp[j] == arr[i]) {
 						ans[i] += key[j];
 					}
-				continue;
 			}
 			System.out.print(ans[i]);
 		}
