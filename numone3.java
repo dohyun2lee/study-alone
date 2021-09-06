@@ -1,23 +1,31 @@
-import java.util.*;
+package numone;
 
 public class numone3 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int num = 0, sum = 0;
-		System.out.print("숫자를 입력하시오.");
+		int a = 5, b = 3;
+		int c1, c2, c3, c4, c5;
 		
-		Scanner scanner = new Scanner(System.in);
-		String tmp = scanner.nextLine();
-		num = Integer.parseInt(tmp);
+		c1 = a + b;
+		c2 = a - b;
+		c3 = a * b;
+		c4 = a / b;
+		c5 = a % b;
 		
-		while(num!=0) {
-			sum += num%10;
-			System.out.printf("sum=%d num=%d%n", sum, num);
-			
-			num /= 10;
-		}
-		System.out.println("각 자리수의 합 : " +sum);
+		System.out.println("산술연산자");
+		System.out.println("a + b는"+c1+"입니다.");
+		System.out.println("a - b는"+c2+"입니다.");
+		System.out.println("a * b는"+c3+"입니다.");
+		System.out.println("a / b는"+c4+"입니다.");
+		System.out.println("a / b의 나머지는"+c5+"입니다.");
+		System.out.println();
+		System.out.println("증감연산자");
+		System.out.println("++a는"+(++a)+"입니다.");
+		System.out.println("--a는"+(--a)+"입니다.");
+		System.out.println("a++는"+(a++)+"입니다.");
+		System.out.println("a--는"+(a--)+"입니다.");
+		System.out.println("a는"+(a)+"입니다.");
 	}
 
 }
