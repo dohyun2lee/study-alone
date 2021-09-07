@@ -1,23 +1,17 @@
+package numone;
 
 public class numone4 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Tv t;
-		t = new Tv();
-		t.channel = 7;
-		t.channelDown();
-		System.out.println("현재 채널은 "+t.channel+"입니다.");
+		boolean a = true;
+		boolean b = false;
+		
+		System.out.println("a&&b는"+(a&&b));
+		System.out.println("a&b는"+(a&b));
+		System.out.println("a||b는"+(a||b));
+		System.out.println("a|b는"+(a|b));
+		System.out.println("!a는"+(!a));
 	}
 
-}
-
-class Tv{
-	String color;
-	boolean power;
-	int channel;
-	
-	void power() {power = !power;}
-	void channelUp() {++channel;}
-	void channelDown() {--channel;}
 }
