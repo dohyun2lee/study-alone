@@ -1,26 +1,19 @@
+package numone;
 
 public class numone8 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		StringBuffer sb = new StringBuffer("01");
-		StringBuffer sb2 = sb.append(23);
-		sb.append('4').append(56);
+		int a = 4;
 		
-		StringBuffer sb3 = sb.append(78);			
-		sb3.append(9.0);
-
-		System.out.println("sb ="+sb);
-		System.out.println("sb2="+sb2);
-		System.out.println("sb3="+sb3);
-
-		System.out.println("sb ="+sb.deleteCharAt(10));
-		System.out.println("sb ="+sb.delete(3,6));
-		System.out.println("sb ="+sb.insert(3,"abc"));
-		System.out.println("sb ="+sb.replace(6, sb.length(), "END"));
-
-		System.out.println("capacity="+sb.capacity());
-		System.out.println("length="+sb.length());
+		do {
+			System.out.println(a);
+			if(a==10) {
+				System.out.println("a가 "+a+"이므로 while문 종료");
+			}
+			a++;
+		}
+		while (a<=10);
 	}
 
 }
