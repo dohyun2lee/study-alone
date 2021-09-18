@@ -4,20 +4,20 @@ String id = (String)session.getAttribute("idKey");
 %>
 <html>
 <body>
-<h1>Servelt ì„¸ì…˜</h1>
+<h1>Servelt ¼¼¼Ç</h1>
 <%
 if(id!=null) {
 %>
-<%=id%>ë‹˜ ë°˜ê°‘ìŠµë‹ˆë‹¤.<p/>
-<a href = 'logout.jsp'>ë¡œê·¸ì•„ì›ƒ</a>
+<%=id%>´Ô ¹Ý°©½À´Ï´Ù.<p/>
+<a href = 'logout.jsp'>·Î±×¾Æ¿ô</a>
 <%
 }
 else{
 %>
-<form method="post" action="loginServlet">
+<form method="post" action="LoginServlet">
 id : <input name="id"><br/>
 pwd : <input type="password" name="pwd"><br/>
-<input type="submit" value="ë¡œê·¸ì¸">
+<input type="submit" value="·Î±×ÀÎ">
 </form>
 <%}%>
 </body>
