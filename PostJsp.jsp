@@ -9,4 +9,4 @@ email : <input name="email"><br/>
 <input type="submit" value="°¡ÀÔ">
 </form>
 </body>
-</html> 
+</html>
