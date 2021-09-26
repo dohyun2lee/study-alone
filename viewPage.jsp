@@ -2,6 +2,8 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="java.util.*, java.io.*" %> 
+<%@ import javax.servlet.http.HttpServletRequest %>
+
 <%
 String saveFolder = "C:/Jsp/numone1/src/main/java/chapter13/filestorage";
 String encType = "EUC-KR";
