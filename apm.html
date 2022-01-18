@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title> SKT QSDN </title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="../assets/css/facebook/app.min.css" rel="stylesheet" />
+
+        <body>
+            <div id="page-container" class="fade-page-without-sidebar page-header-fixed">
+                <div id="content" class="content">
+                    <h1 class="page-header">MAPs <small>QKD & SDN</samll></h1>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">APM MAP</h4>
+                                <div id="container" style="width: 900px; height: 700px; 100%"></div>
+                                <input type="button" onclick="clusterAll()" value="Summary">
+                                <input type="button" onclick="clusterOpen()" value="Datail">
+                            </div>
+                            <script>
+                              var container = document.getElementById('container');
+                              var nodes = new vis.DataSet([{
+                                id: "123-api",
+                                label: "QKD_API",
+                                x: -280,
+                                y: -80,
+                                group: "api",
+                                color: "#abdbe3"
+                            }, {
+                                id: "koren_123_java",
+                                label: "OTN_API",
+                                x: -220,
+                                y: -20,
+                                group: "api",
+                                color: "#abdbe3"
+                            }, {
+                                id: "123-view",
+                                label: "TB_WEB",
+                                x: -220,
+                                y: -300,
+                                group: "web",
+                                color: "#eeeee4"
+                            },  {
+                                id: "postgresql",
+                                label: "RDBMS",
+                                x: -80,
+                                y: -200,
+                                group: "db",
+                                color: "#eeeee4"
+                            },  {
+                                id: "기간망\nCore서비스",
+                                label: "기간망\nCore서비스",
+                                x: -170,
+                                y: 130,
+                                group: "service",
+                                color: "#eeeee4"
+                            },  {
+                                id: "서비스IP\nCore서비스",
+                                label: "서비스IP\nCore서비스",
+                                x: -50,
+                                y: 130,
+                                group: "service",
+                                color: "#eeeee4"
+                            }, {
+                                id: "SR_API",
+                                label: "SR_API",
+                                x: 130,
+                                y: 90,
+                                group: "api",
+                                color: "#eeeee4"
+                            }, {
+                                id: "h2",
+                                label: "H2",
+                                x: 180,
+                                y: -80,
+                                group: "db",
+                                color: "#eeeee4"
+                            }, {
+                                id: "Kafka",
+                                label: "Kafka",
+                                x: 50,
+                                y: 0,
+                                group: "Kafka",
+                                color: "#eeeee4"
+                            }, {
+                                id: "DP_API",
+                                label: "DP_API",
+                                x: 100,
+                                y: -280,
+                                group: "api",
+                                color: "#eeeee4"
+                            },{
+                                id: "elasticsearch",
+                                label: "DP_ES",
+                                x: 150,
+                                y: -150,
+                                group: "Elastic\nSearch",
+                                color: "#52D7E7"
+                            },{
+                                id: "redis",
+                                label: "redis",
+                                x: -60,
+                                y: -300,
+                                group: "db",
+                                color: "#eeeee4"
+                            }, ]);
+                            var edges = new vis.DataSet([
+                                {
+                                    "id": "246-api/postgresql",
+                                    "from": "246-api",
+                                    "to": "postgresql",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "koren_123_java/postgresql",
+                                    "from": "koren_123_java",
+                                    "to": "postgresql",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "246-view/246-api",
+                                    "from": "246-view",
+                                    "to": "246-api",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "123-view/127.0.0.1:8080",
+                                    "from": "123-view",
+                                    "to": "127.0.0.1:8080",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "123-view/123-api",
+                                    "from": "123-view",
+                                    "to": "123-api",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "80-view/80-api",
+                                    "from": "80-view",
+                                    "to": "80-api",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "123-api/postgresql",
+                                    "from": "123-api",
+                                    "to": "postgresql",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "80-api/postgresql",
+                                    "from": "80-api",
+                                    "to": "postgresql",
+                                    label: "0"
+                                },
+                                {
+                                    "id": "기간망\nCore서비스/postgresql",
+                                    "from": "기간망\nCore서비스",
+                                    "to": "postgresql",
+                                    label: "0",
+                                    dashes: true
+                                },
+                                {
+                                    "id": "서비스IP\nCore서비스/postgresql",
+                                    "from": "서비스IP\nCore서비스",
+                                    "to": "postgresql",
+                                    label: "0",
+                                    dashes: true
+                                },
+                                {
+                                    "id": "SR/H2",
+                                    "from": "SR",
+                                    "to": "h2",
+                                    label: "0",
+                                },
+                                {
+                                  "id": "기간망\nCore서비스/Kafka",
+                                  "from": "기간망\nCore서비스",
+                                  "to": "Kafka",
+                                  label: "0",
+                                },
+                                {
+                                  "id": "서비스IP\nCore서비스/Kafka",
+                                  "from": "서비스IP\nCore서비스",
+                                  "to": "Kafka",
+                                  label: "0",
+                                },
+                                {
+                                  "id": "DP_API/elasticsearch",
+                                  "from": "DP_API",
+                                  "to": "elasticsearch",
+                                  label: "0"
+                                },
+                                {
+                                  "id": "DP_API/redis",
+                                  "from": "DP_API",
+                                  "to": "redis",
+                                  label: "0"
+                                },
+                                {
+                                  "id": "SR_API/h2",
+                                  "from": "SR_API",
+                                  "to": "h2",
+                                  label: "0"
+                                },
+                                {
+                                  "id": "Kafka/elasticsearch",
+                                  "from": "Kafka",
+                                  "to": "elasticsearch",
+                                  label: "0"
+                                },
+                              ]);
+                              
+                              // var container = document.getElementById()
+                              var data = {
+                                      nodes: nodes,
+                                      edges: edges,
+                              };
+                              var options = {
+                                interaction:{
+                                  zoomView: false,
+                                  hover: true,
+                                },
+                                      layout: { randomSeed: 8 },
+                                physics: { adaptiveTimestep: false },
+                                nodes: {
+                                  size: 30,
+                                  font: {
+                                    size: 18,
+                                  },
+                                  margin: {top:13, right:10, left:11, bottom:10} ,
+                                  borderWidth: 1,
+                                  shadow: true,
+                                  fixed: true,
+                                  shape: "box"
+                                },
+                                edges: {
+                                  width: 2,
+                                  shadow: true,
+                                  arrows: "to ",
+                                },
+                              
+                                groups: {
+                                db: { color: "#3D90D9"},
+                                api: { color: "#DBE6F2"},
+                                web: { color: "#88C9F2"},
+                                "Elastic\nSearch": { color: "#B3B3FF"},
+                                Kafka: { color: "#DAD7CA"},
+                                service: {color: "#A68A7B"}
+                                }
+                               };
+                               var ch = {
+                                "qsdn.myskcdn.net:443":"246-api",
+                                "127.0.0.1:80":"123-api",
+                                "61.255.238.80:7443":"80-api",
+                                "127.0.0.1:8080":""
+                               }
+                              network = new vis.Network(container, data, options);
+                              function loadData(){å
+                                axios.get('/api')
+                                .then(function(response){
+                                    console.log(response.data.data);
+                                    let data = response.data.data;
+                                    for(let i of data){
+                                        if(Object.keys(ch).indexOf(i.to) != -1){
+                                            i.to = ch[i.to];
+                                        }
+                                        var la = (i.count/24);
+                                        edges.update({id:i.from+"/"+i.to, label: la.toFixed(2).toString()+" tph"})
+                                    }
+                                    
+                                })
+                            }
+
+                            network.on("selectNode", function (params) {
+                                if (params.nodes.length == 1) {
+                                  if (network.isCluster(params.nodes[0]) == true) {
+                                    network.openCluster(params.nodes[0]);
+                                  }
+                                }
+                              });
+                        
+                              function clusterAll() {
+                                network.setData(data);
+                                var groups = ["db", "api", "web", "Elastic\nSearch", "Kafka", "service"];
+                                var gcolors = ["#3D90D9", "#DBE6F2", "#88C9F2", "#B3B3FF", "#DAD7CA", "#A68A7B"];
+                                var clusterOptionByData;
+                                for (var i = 0; i < groups.length; i++) {
+                                  var group = groups[i];
+                                  var gcolor = gcolors[i];
+                                  clusterOptionByData = {
+                                    joinCondition : function (childOptions) {
+                                      return childOptions.group == group;
+                                    },
+                                    processProperties: function (
+                                    clusterOptions,
+                                    childNodes,
+                                    childEdges
+                                  ) {
+                                      var TotalMass = 0;
+                                      for (var i = 0; i < childNodes.length; i++) {
+                                        TotalMass += childNodes[i].mass;
+                                      }
+                                      clusterOptions.mass = TotalMass;
+                                      return clusterOptions;
+                                    },
+                                    clusterNodeProperties: {
+                                    id: "cluster" + group,
+                                    borderwidth: 3,
+                                    shape: "database",
+                                    color: gcolor,
+                                    label: group,
+                                    allowSingleNodeCluster: true
+                                    },
+                                  };
+                                  network.cluster(clusterOptionByData);
+                                }
+                              }
+                              function clusterOpen() {
+                                network.setData(data);
+                                network.openCluster();
+                              }
+                            loadData();
+                            setInterval(loadData,10 * 1000);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                </div>    
+                <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+            </div>    
+        </body>
+</html>
