@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="clusterone">Select for clustering :</label>
+    <select if="clusterone" name="clusterone">
+        <option onclick="hello()" value="">logcollcet</option>
+        <option value="">loganalysis</option>
+        <option value="">DB</option>
+        <option value="">k8s</option>
+        <option value="">prometheus</option>
+        <option value="">grafana</option>
+        <option value="">PORTAL</option>
+        <option value="">NEW PORTAL</option>
+        <option value="">GTM</option>
+        <option value="">transcoder</option>
+      </select>
+    <input type ="checkbox" onclick="hello()" value="hi">hi
+    <input type ="checkbox" onclick="hello()" value="hi">hi2
+    <input type ="checkbox" onclick="hello()" value="hi">hi3
+    <input type ="checkbox" onclick="hello()" value="hi">hi4
+    <input type ="checkbox" onclick="hello()" value="hi">hi5
+    <input type ="checkbox" onclick="clusterOne()" value="hi">hi6
+
+    <input type ="button" onclick="hello()" value="hello">
+    <br>
+    <p ondblclick="hello()">Double-click me</p>
+    <input type ="button" ondblclick="hello()" value="hellllo">
+    <input type="button" onclick="abs()" value="test">
+    
+
+    <script> 
+        //var x = document.getElementById("choice").value;
+
+        function hello() {
+            alert("hello");
+        }
+        //function hhh() {
+            
+           // alert(x);
+        //}
+        function hhhd() {
+            var x = document.getElementById("choice").value;
+            if (x == "b") {
+                alert("hj");
+                //hello();
+            }
+        }
+        function abs() {
+            var x = document.getElementById(test).value;
+            var groups = ["logcollect", "loganalysis", "DB", "k8s", "prometheus", "grafana", "PORTAL", "NEW_PORTAL", "GTM", "transcoder"];
+            var gcolors = ["#F4BFBF", "#FFD9C0", "#F0FFC2", "#8CC0DE", "#FFF89A", "#B7E5DD", "#CEAB93", "#EBD8C3", "#B4CFB0", "#FFB72B"];
+            console.log(x);
+            for (var i = 0; i < groups.length; i++) {
+                var group = groups[i];
+                var gcolor = gcolors[i];
+
+                if (x = groups[i]) {
+                    console.log(i);
+                }
+            }
+        }
+
+        
+    </script>
+</body>  
+    
+    <select id="choice" oninput="hhhd(this)">
+        <option value="a">a</option>
+        <option value="b">b</option>
+    </select>
+    
+    
+    
+</body>
+</html>

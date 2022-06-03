@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title> SK </title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="../assets/css/facebook/app.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <body>
+            <div id="page-container" class="fade-page-without-sidebar page-header-fixed">
+                <div id="content" class="content">
+                    <h1 class="page-header"> SK <br> Autoprovisionig Map</h1>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <div id="container" style="width: 800px; height: 700px; 100%"></div>
+                                <input type="button" onclick="clusterAll()" value="Summary">
+                                <input type="button" onclick="clusterOpen()" value="Datail">
+                                
+                            </div>
+                            <script>
+                              var container = document.getElementById('container');
+                              var nodes = new vis.DataSet([{
+                                id: "CDN",
+                                label: "Edge/Relay",
+                                x: -350,
+                                y: 0,
+                                color: "#f1d0f5"
+                            },  {
+                                id: "Origin",
+                                label: "Origin",
+                                x: -250,
+                                y: 150,
+                                color: "#eeeee4"
+                            },  {
+                                id: "USER",
+                                label: "USER",
+                                x: -500,
+                                y: 200,
+                                color: "#eeeee4"
+                            },  {
+                                id: "222.239.8.242",
+                                label: "logcollect01",
+                                x: -70,
+                                y: -300,
+                                group: "logcollect",
+                                color: "#eeeee4"
+                            },  {
+                                id: "222.239.8.243",
+                                label: "logcollect02",
+                                x: -60,
+                                y: -220,
+                                group: "logcollect",
+                                color: "#eeeee4"
+                            }, {
+                                id: "222.239.8.236",
+                                label: "loganalysis01",
+                                x: 170,
+                                y: -350,
+                                group: "loganalysis",
+                                color: "#eeeee4"
+                            }, {
+                                id: "222.239.8.237",
+                                label: "loganalysis02",
+                                x: 190,
+                                y: -250,
+                                group: "loganalysis",
+                                color: "#eeeee4"
+                            }, {
+                                id: "222.239.8.231",
+                                label: "influxdb01",
+                                x: 480,
+                                y: -330,
+                                group: "DB",
+                                color: "#eeeee4"
+                            }, {
+                                id: "222.239.8.233",
+                                label: "DB1(mysql)",
+                                x: 430,
+                                y: -230,
+                                group: "DB",
+                                color: "#eeeee4"
+                            },{
+                                id: "211.110.174.232",
+                                label: "thanos01",
+                                x: 300,
+                                y: -60,
+                                group: "DB",
+                                color: "#52D7E7"
+                            },{
+                                id: "211.110.174.248",
+                                label: "thanos02(mysql)",
+                                x: 300,
+                                y: -140,
+                                group: "DB",
+                                color: "#eeeee4"
+                            },{
+                              id: "222.239.8.247",
+                              label: "k8s01",
+                              x: 850,
+                              y: -350,
+                              group: "k8s",
+                              color: "#eeeee4"
+                            },{
+                              id: "222.239.8.248",
+                              label: "k8s02",
+                              x: 750,
+                              y: -270,
+                              group: "k8s",
+                              color: "#eeeee4"
+                            },{
+                              id: "222.239.8.249",
+                              label: "k8s03",
+                              x: 890,
+                              y: -200,
+                              group: "k8s",
+                              color: "#eeeee4"
+                            },{
+                              id: "222.239.8.226",
+                              label: "prometheus246",
+                              x: 0,
+                              y: -50,
+                              group: "prometheus",
+                              color: "#eeeee4"
+                            },{
+                              id: "222.239.8.232",
+                              label: "prometheus232",
+                              x: 50,
+                              y: 0,
+                              group: "prometheus",
+                              color: "#eeeee4"
+                            },{
+                              id: "222.239.8.227",
+                              label: "prometheus247",
+                              x: 0,
+                              y: 50,
+                              group: "prometheus",
+                              color: "#eeeee4"
+                            },{
+                              id: "grafana01",
+                              label: "grafana01",
+                              x: 300,
+                              y: 160,
+                              group: "grafana",
+                              color: "#eeeee4"
+                            },{
+                              id: "grafana02",
+                              label: "grafana02",
+                              x: 300,
+                              y: 100,
+                              group: "grafana",
+                              color: "#eeeee4"
+                            },{
+                              id: "https://portal.myskcdn.net/",
+                              label: "PORTAL",
+                              x: 750,
+                              y: -100,
+                              group: "PORTAL",
+                              color: "#eeeee4"
+                            },{
+                              id: "https://userportal.myskcdn.net/",
+                              label: "USER PORTAL",
+                              x: 900,
+                              y: -100,
+                              group: "PORTAL",
+                              color: "#eeeee4"
+                            },{
+                              id: "https://portal.myskcdn.net:8443/#!/",
+                              label: "NEW PORTAL",
+                              x: 650,
+                              y: 00,
+                              group: "NEW_PORTAL",
+                              color: "#eeeee4"
+                            },{
+                              id: "https://userportal.myskcdn.net:8443/#!/",
+                              label: "NEW USER PORTAL",
+                              x: 600,
+                              y: 80,
+                              group: "NEW_PORTAL",
+                              color: "#eeeee4"
+                            },{
+                              id: "minio",
+                              label: "minio",
+                              x: -400,
+                              y: -200,
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "GTM01",
+                              label: "GTM01",
+                              x: -350,
+                              y: -350,
+                              group: "GTM",
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "GTM02",
+                              label: "GTM02",
+                              x: -350,
+                              y: -420,
+                              group: "GTM",
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "trupload2.myskcdn.net",
+                              label: "TRUploader",
+                              x: -300,
+                              y: 300,
+                              group: "transcoder",
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "TRAPI",
+                              label: "transcodingAPI",
+                              x: 50,
+                              y: 370,
+                              group: "transcoder",
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "TRDB",
+                              label: "transcodingDB",
+                              x: -250,
+                              y: 450,
+                              group: "transcoder",
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "TRDist",
+                              label: "transcoding distributor",
+                              x: 400,
+                              y: 300,
+                              group: "transcoder",
+                              color: "#eeeee4"
+                            },
+                            {
+                              id: "TREdge",
+                              label: "transcoding edge",
+                              x: 40,
+                              y: 200,
+                              group: "transcoder",
+                              color: "#eeeee4"
+                            },
+                            ]);
+                            var edges = new vis.DataSet([
+                                {
+                                    "id": "CDN/Origin",
+                                    "from": "CDN",
+                                    "to": "Origin",
+                                    arrows: "to, from",
+                                    label: ""
+                                },
+                                {
+                                    "id": "USER/CDN",
+                                    "from": "USER",
+                                    "to": "CDN",
+                                    arrows: "to, from",
+                                    label: ""
+                                },
+                                {
+                                  "id": "CDN/222.239.8.242",
+                                  "from": "CDN",
+                                  "to": "222.239.8.242",
+                                  label: ""
+                                },
+                                {
+                                  "id": "CDN/222.239.8.243",
+                                  "from": "CDN",
+                                  "to": "222.239.8.243",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.242/222.239.8.237",
+                                  "from": "222.239.8.242",
+                                  "to": "222.239.8.237",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.242/222.239.8.236",
+                                  "from": "222.239.8.242",
+                                  "to": "222.239.8.236",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.243/222.239.8.236",
+                                  "from": "222.239.8.243",
+                                  "to": "222.239.8.236",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.243/222.239.8.237",
+                                  "from": "222.239.8.243",
+                                  "to": "222.239.8.237",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.236/222.239.8.231",
+                                  "from": "222.239.8.236",
+                                  "to": "222.239.8.231",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.236/222.239.8.233",
+                                  "from": "222.239.8.236",
+                                  "to": "222.239.8.233",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.237/222.239.8.231",
+                                  "from": "222.239.8.237",
+                                  "to": "222.239.8.231",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.237/211.110.174.248",
+                                  "from": "222.239.8.237",
+                                  "to": "211.110.174.248",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.231/222.239.8.248",
+                                  "from": "222.239.8.231",
+                                  "to": "222.239.8.248",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "222.239.8.233/222.239.8.248",
+                                  "from": "222.239.8.233",
+                                  "to": "222.239.8.248",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "222.239.8.249/222.239.8.248",
+                                  "from": "222.239.8.249",
+                                  "to": "222.239.8.248",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "https://portal.myskcdn.net//222.239.8.248",
+                                  "from": "https://portal.myskcdn.net/",
+                                  "to": "222.239.8.248",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "https://userportal.myskcdn.net//222.239.8.249",
+                                  "from": "https://userportal.myskcdn.net/",
+                                  "to": "222.239.8.249",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "https://portal.myskcdn.net:8443/#!//211.110.174.248",
+                                  "from": "https://portal.myskcdn.net:8443/#!/",
+                                  "to": "211.110.174.248",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "https://userportal.myskcdn.net:8443/#!//211.110.174.248",
+                                  "from": "https://userportal.myskcdn.net:8443/#!/",
+                                  "to": "211.110.174.248",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "222.239.8.232/211.110.174.232",
+                                  "from": "222.239.8.232",
+                                  "to": "211.110.174.232",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.232/grafana02",
+                                  "from": "222.239.8.232",
+                                  "to": "grafana02",
+                                  label: ""
+                                },
+                                {
+                                  "id": "222.239.8.247/CDN",
+                                  "from": "222.239.8.247",
+                                  "to": "CDN",
+                                  label: "",
+                                  smooth: {
+                                    type: "curvedCCW"
+                                  }
+                                },
+                                {
+                                  "id": "minio/CDN",
+                                  "from": "minio",
+                                  "to": "CDN",
+                                  label: ""
+                                },
+                                {
+                                  "id": "GTM01/USER",
+                                  "from": "GTM01",
+                                  "to": "USER",
+                                  label: "",
+                                  smooth: {
+                                    type: "curvedCCW"
+                                  }
+                                },
+                                {
+                                  "id": "222.239.8.247/GTM01",
+                                  "from": "222.239.8.247",
+                                  "to": "GTM01",
+                                  label: "",
+                                  smooth: {
+                                    type: "curvedCCW"
+                                  }
+                                },
+                                {
+                                  "id": "USER/trupload2.myskcdn.net",
+                                  "from": "USER",
+                                  "to": "trupload2.myskcdn.net",
+                                  label: ""
+                                },
+                                {
+                                  "id": "trupload2.myskcdn.net/TRAPI",
+                                  "from": "trupload2.myskcdn.net",
+                                  "to": "TRAPI",
+                                  label: ""
+                                },
+                                {
+                                  "id": "TRAPI/TRDB",
+                                  "from": "TRAPI",
+                                  "to": "TRDB",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "TRAPI/TRDist",
+                                  "from": "TRAPI",
+                                  "to": "TRDist",
+                                  label: "",
+                                  arrows: "to; from"
+                                },
+                                {
+                                  "id": "TRAPI/TREdge",
+                                  "from": "TRAPI",
+                                  "to": "TREdge",
+                                  label: ""
+                                },
+                                {
+                                  "id": "TREdge/Origin",
+                                  "from": "TREdge",
+                                  "to": "Origin",
+                                  label: ""
+                                },
+                              ]);
+                              
+                              // var container = document.getElementById()
+                              var data = {
+                                      nodes: nodes,
+                                      edges: edges,
+                              };
+                              var options = {
+                                interaction:{
+                                  zoomView: false,
+                                  hover: true,
+                                },
+                                      layout: { randomSeed: 8 },
+                                physics: { adaptiveTimestep: false },
+                                nodes: {
+                                  size: 30,
+                                  font: {
+                                    size: 18,
+                                  },
+                                  margin: {top:13, right:10, left:11, bottom:10} ,
+                                  borderWidth: 1,
+                                  shadow: true,
+                                  fixed: true,
+                                  shape: "box"
+                                },
+                                edges: {
+                                  width: 2,
+                                  shadow: true,
+                                  arrows: "to ",
+                                  smooth: {
+                                    "type": "continuous",
+                                    "forceDirection": "none"
+                                  },       
+                                },
+                              
+                                groups: {
+                                logcollect: { color: "#F4BFBF"},
+                                loganalysis: { color: "#FFD9C0"},
+                                DB: { color: "#F0FFC2"},
+                                k8s: { color: "#8CC0DE"},
+                                prometheus: { color: "#FFF89A"},
+                                grafana: { color: "#B7E5DD"},
+                                PORTAL: {color: "#CEAB93"},
+                                "NEW_PORTAL": {color: "#EBD8C3"},
+                                GTM: {color: "#B4CFB0"},
+                                transcoder: {color: "#FFB72B"}
+                                }
+                               };
+                              network = new vis.Network(container, data, options);
+
+                            network.on("selectNode", function (params) {
+                                if (params.nodes.length == 1) {
+                                  if (network.isCluster(params.nodes[0]) == true) {
+                                    network.openCluster(params.nodes[0]);
+                                  }
+                                }
+                              });
+                        
+                              function clusterAll() {
+                                network.setData(data);
+                                var groups = ["logcollect", "loganalysis", "DB", "k8s", "prometheus", "grafana", "PORTAL", "NEW_PORTAL", "GTM", "transcoder"];
+                                var gcolors = ["#F4BFBF", "#FFD9C0", "#F0FFC2", "#8CC0DE", "#FFF89A", "#B7E5DD", "#CEAB93", "#EBD8C3", "#B4CFB0", "#FFB72B"];
+                                var clusterOptionByData;
+                                for (var i = 0; i < groups.length; i++) {
+                                  var group = groups[i];
+                                  var gcolor = gcolors[i];
+                                  clusterOptionByData = {
+                                    joinCondition : function (childOptions) {
+                                      return childOptions.group == group;
+                                    },
+                                    processProperties: function (
+                                    clusterOptions,
+                                    childNodes,
+                                    childEdges
+                                  ) {
+                                      var TotalMass = 0;
+                                      for (var i = 0; i < childNodes.length; i++) {
+                                        TotalMass += childNodes[i].mass;
+                                      }
+                                      clusterOptions.mass = TotalMass;
+                                      return clusterOptions;
+                                    },
+                                    clusterNodeProperties: {
+                                    id: "cluster" + group,
+                                    borderwidth: 3,
+                                    shape: "database",
+                                    color: gcolor,
+                                    label: group,
+                                    allowSingleNodeCluster: true
+                                    },
+                                  };
+                                  network.cluster(clusterOptionByData);
+                                }
+                              }
+                              function clusterOpen() {
+                                network.setData(data);
+                                network.openCluster();
+                              }
+                            loadData();
+                            setInterval(loadData,10 * 1000);  
+                            function timeOption() {setInterval(loadData,10 * 1000);  } 
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                </div>    
+                <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+            </div>    
+        </body>
+</html>

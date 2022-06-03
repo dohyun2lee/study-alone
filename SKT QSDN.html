@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://202.mingky.pw:5905/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title> SKT QSDN </title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        var hour = 24;
+        window.onload = function () {
+            var container = document.getElementById('container');
+            var nodes = new vis.DataSet([{
+                id: "123-api",
+                label: "QKD_API",
+                x: -280,
+                y: -80,
+                group: "api",
+                color: "#abdbe3"
+            }, {
+                id: "koren_123_java",
+                label: "OTN_API",
+                x: -220,
+                y: -20,
+                group: "api",
+                color: "#abdbe3"
+            }, {
+                id: "123-view",
+                label: "TB_WEB",
+                x: -220,
+                y: -300,
+                group: "web",
+                color: "#eeeee4"
+            }, {
+                id: "postgresql",
+                label: "RDBMS",
+                x: -80,
+                y: -200,
+                group: "db",
+                color: "#eeeee4"
+            }, {
+                id: "기간망\nCore서비스",
+                label: "기간망\nCore서비스",
+                x: -170,
+                y: 80,
+                group: "service",
+                color: "#eeeee4"
+            }, {
+                id: "서비스IP\nCore서비스",
+                label: "서비스IP\nCore서비스",
+                x: -50,
+                y: 160,
+                group: "service",
+                color: "#eeeee4"
+            }, {
+                id: "SR_API",
+                label: "SR_API",
+                x: 150,
+                y: 120,
+                group: "api",
+                color: "#eeeee4"
+            }, {
+                id: "h2",
+                label: "H2",
+                x: 160,
+                y: -60,
+                group: "db",
+                color: "#eeeee4"
+            }, {
+                id: "Kafka",
+                label: "Kafka",
+                x: 30,
+                y: 0,
+                group: "Kafka",
+                color: "#eeeee4"
+            }, {
+                id: "DP_API",
+                label: "DP_API",
+                x: 100,
+                y: -280,
+                group: "api",
+                color: "#eeeee4"
+            }, {
+                id: "elasticsearch",
+                label: "DP_ES",
+                x: 120,
+                y: -150,
+                group: "Elastic\nSearch",
+                color: "#52D7E7"
+            }, {
+                id: "redis",
+                label: "redis",
+                x: -60,
+                y: -300,
+                group: "db",
+                color: "#eeeee4"
+            },//{
+                //id: "Kafka\nConsumer",
+                //label: "Kafka\nConsumer",
+                //x: 300,
+                //y: -0,
+                //group: "Kafka",
+                //color: "#eeeee4"
+                //}, 
+            ]);
+            var edges = new vis.DataSet([
+                {
+                    "id": "246-api/postgresql",
+                    "from": "246-api",
+                    "to": "postgresql",
+                    label: "0"
+                },
+                {
+                    "id": "koren_123_java/postgresql",
+                    "from": "koren_123_java",
+                    "to": "postgresql",
+                    label: "0"
+                },
+                {
+                    "id": "246-view/246-api",
+                    "from": "246-view",
+                    "to": "246-api",
+                    label: "0"
+                },
+                {
+                    "id": "123-view/127.0.0.1:8080",
+                    "from": "123-view",
+                    "to": "127.0.0.1:8080",
+                    label: "0"
+                },
+                {
+                    "id": "123-view/123-api",
+                    "from": "123-view",
+                    "to": "123-api",
+                    label: "0",
+                    arrows: "from"
+                },
+                {
+                    "id": "80-view/80-api",
+                    "from": "80-view",
+                    "to": "80-api",
+                    label: "0"
+                },
+                {
+                    "id": "123-api/postgresql",
+                    "from": "123-api",
+                    "to": "postgresql",
+                    label: "0"
+                },
+                {
+                    "id": "80-api/postgresql",
+                    "from": "80-api",
+                    "to": "postgresql",
+                    label: "0"
+                },
+                {
+                    "id": "기간망\nCore서비스/postgresql",
+                    "from": "기간망\nCore서비스",
+                    "to": "postgresql",
+                    label: "0",
+                    dashes: true
+                },
+                {
+                    "id": "서비스IP\nCore서비스/postgresql",
+                    "from": "서비스IP\nCore서비스",
+                    "to": "postgresql",
+                    label: "0",
+                    dashes: true
+                },
+                {
+                    "id": "SR/H2",
+                    "from": "SR",
+                    "to": "h2",
+                    label: "0",
+                },
+                {
+                    "id": "기간망\nCore서비스/Kafka",
+                    "from": "기간망\nCore서비스",
+                    "to": "Kafka",
+                    label: "0",
+                },
+                {
+                    "id": "서비스IP\nCore서비스/Kafka",
+                    "from": "서비스IP\nCore서비스",
+                    "to": "Kafka",
+                    label: "0",
+                },
+                {
+                    "id": "DP_API/elasticsearch",
+                    "from": "DP_API",
+                    "to": "elasticsearch",
+                    label: "0"
+                },
+                {
+                    "id": "DP_API/redis",
+                    "from": "DP_API",
+                    "to": "redis",
+                    label: "0"
+                },
+                {
+                    "id": "SR_API/h2",
+                    "from": "SR_API",
+                    "to": "h2",
+                    label: "0"
+                },
+                {
+                    "id": "Kafka/elasticsearch",
+                    "from": "Kafka",
+                    "to": "elasticsearch",
+                    label: "0"
+                },
+                {
+                    "id": "기간망\nCore서비스/SR_API",
+                    "from": "기간망\nCore서비스",
+                    "to": "SR_API",
+                    label: "0",
+                    dashes: true
+                },
+                {
+                    "id": "Kafka/SR_API",
+                    "from": "Kafka",
+                    "to": "SR_API",
+                    label: "0",
+                    dashes: true
+                },
+                {
+                    "id": "Kafka/Kafka\nConsumer",
+                    "from": "Kafka",
+                    "to": "Kafka\nConsumer",
+                    label: "0",
+                    dashes: true
+                },
+                {
+                    "id": "elasticsearch/Kafka\nConsumer",
+                    "from": "elasticsearch",
+                    "to": "Kafka\nConsumer",
+                    label: "0",
+                    dashes: true
+                },
+            ]);
+
+            // var container = document.getElementById()
+            var data = {
+                nodes: nodes,
+                edges: edges,
+            };
+            var options = {
+                physics: {
+                    enabled: false
+                },
+                interaction: {
+                    zoomView: false,
+                    hover: true,
+                },
+                layout: { randomSeed: 8 },
+                nodes: {
+                    size: 30,
+                    font: {
+                        size: 18,
+                    },
+                    margin: { top: 13, right: 10, left: 11, bottom: 10 },
+                    borderWidth: 1,
+                    shadow: true,
+                    // fixed: true,
+                    shape: "box"
+                },
+                edges: {
+                    width: 2,
+                    shadow: true,
+                    arrows: "to",
+                    smooth: {
+                        "type": "continuous",
+                        "forceDirection": "none"
+                    }
+                },
+
+                groups: {
+                    db: { color: "#9BA7BF" },
+                    api: { color: "#E6CDAE" },
+                    web: { color: "#BF9280" },
+                    "Elastic\nSearch": { color: "#E0DCBB" },
+                    Kafka: { color: "#CCCCCA" },
+                    service: { color: "#D9C7C5" }
+                }
+            };
+            var ch = {
+                "qsdn.myskcdn.net:443": "246-api",
+                "127.0.0.1:80": "123-api",
+                "61.255.238.80:7443": "80-api",
+                "127.0.0.1:8080": ""
+            }
+            network = new vis.Network(container, data, options);
+            function loadData() {
+                axios.get('/api/apm?hour=' + hour)
+                    .then(function (response) {
+                        let data = response.data.data;
+                        for (let i of data) {
+                            if (Object.keys(ch).indexOf(i.to) != -1) {
+                                i.to = ch[i.to];
+                            }
+                            var la = (i.count / hour / 60);
+                            edges.update({
+                                id: i.from + "/" + i.to, label: la.toFixed(1).toString() + " tpm", color: {
+                                    color: la > 6 ? "#FF0000" : edges.color
+                                }
+                            })
+                        }
+                    })
+            }
+            function getPosition() {
+                axios.get('api/position')
+                    .then(function (response) {
+                        let json = JSON.stringify(response.data);
+                        let obj = JSON.parse(json);
+                        for (var [key, value] of Object.entries(obj)) {
+                            network.moveNode(key, value.x, value.y);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert("Error");
+                    })
+            }
+            function postPosition() {
+                let parseData = network.getPositions();
+                let parseJson = JSON.stringify(parseData);
+                axios.post('api/position', parseJson)
+                    .then(function (_) {
+                        alert("Saved");
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert("Error");
+                    })
+            }
+            function resetPosition() {
+                let resetJsonPositions = `{"123-api":{"x":-280,"y":-80},"koren_123_java":{"x":-220,"y":-20},"123-view":{"x":-220,"y":-300},"postgresql":{"x":-80,"y":-200},"기간망\\nCore서비스":{"x":-170,"y":130},"서비스IP\\nCore서비스":{"x":-50,"y":130},"SR_API":{"x":130,"y":90},"h2":{"x":180,"y":-80},"Kafka":{"x":50,"y":0},"DP_API":{"x":100,"y":-280},"elasticsearch":{"x":150,"y":-150},"redis":{"x":-60,"y":-300}}`;
+                let obj = JSON.parse(resetJsonPositions);
+                for (var [key, value] of Object.entries(obj)) {
+                    network.moveNode(key, value.x, value.y);
+                }
+            }
+            network.on("selectNode", function (params) {
+                if (params.nodes.length == 1) {
+                    if (network.isCluster(params.nodes[0]) == true) {
+                        network.openCluster(params.nodes[0]);
+                        getPosition();
+                    }
+                }
+                // loadData();
+            });
+
+            function clusterAll() {
+                network.setData(data);
+                var groups = ["db", "api", "web", "Elastic\nSearch", "Kafka", "service"];
+                var gcolors = ["#9BA7BF", "#E6CDAE", "#BF9280", "#E0DCBB", "#CCCCCA", "#D9C7C5"];
+                var clusterOptionByData;
+                for (var i = 0; i < groups.length; i++) {
+                    var group = groups[i];
+                    var gcolor = gcolors[i];
+                    clusterOptionByData = {
+                        joinCondition: function (childOptions) {
+                            return childOptions.group == group;
+                        },
+                        processProperties: function (
+                            clusterOptions,
+                            childNodes,
+                            childEdges
+                        ) {
+                            var TotalMass = 0;
+                            for (var i = 0; i < childNodes.length; i++) {
+                                TotalMass += childNodes[i].mass;
+                            }
+                            clusterOptions.mass = TotalMass;
+                            return clusterOptions;
+                        },
+                        clusterNodeProperties: {
+                            id: "cluster" + group,
+                            borderwidth: 3,
+                            shape: "database",
+                            color: gcolor,
+                            label: group,
+                            allowSingleNodeCluster: true
+                        },
+                    };
+                    network.cluster(clusterOptionByData);
+                }
+                document.getElementById('detailOnlyDiv').hidden = true;
+            }
+            function clusterOpen() {
+
+                network.setData(data);
+                // network.openCluster();
+                document.getElementById('detailOnlyDiv').hidden = false;
+            };
+
+            loadData();
+            setInterval(loadData, 10 * 1000);
+            document.getElementById('summaryButton').addEventListener('click', clusterAll);
+            document.getElementById('detailButton').addEventListener('click', clusterOpen);
+            document.getElementById('loadButton').addEventListener('click', getPosition);
+            document.getElementById('saveButton').addEventListener('click', postPosition);
+            document.getElementById('resetButton').addEventListener('click', resetPosition);
+            getPosition();
+        }
+        function log(hour) {
+            this.hour = hour;
+            document.getElementById('hour-display').innerText = hour.toString();
+        }
+    </script>
+</head>
+
+<body>
+    <div style="position: absolute; margin-left: 30px; margin-top: 30px; height: 50; left: 0; z-index: 10;">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Time
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="javascript:log(1)">1 hour</a></li>
+                <li><a class="dropdown-item" href="javascript:log(12)">12 hours</a></li>
+                <li><a class="dropdown-item" href="javascript:log(24)">24 hours</a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="position: absolute; margin-right:30px; margin-top:30px; height: 50px; right: 0;">
+        <p id="hour-display" style="display: inline;">24</p>
+        <p style="display: inline;">시간에 대한 데이터 입니다.</p>
+    </div>
+    <div id="container" style="width: 100%; height: 92%; "><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="1920" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;" height="738"></canvas></div></div>
+    <div style="float: left; margin-left: 30px;">
+        <button id="summaryButton" class="btn btn-primary">Summary</button>
+        <button id="detailButton" class="btn btn-primary">Datail</button>
+    </div>
+    <div id="detailOnlyDiv" style="float: right; margin-right: 30px;">
+        <button id="loadButton" class="btn btn-primary">Load</button>
+        <button id="saveButton" class="btn btn-primary">Save</button>
+        <button id="resetButton" class="btn btn-primary">Reset</button>
+    </div>
+
+
+</body></html>
